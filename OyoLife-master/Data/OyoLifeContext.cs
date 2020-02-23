@@ -17,7 +17,7 @@ namespace OyoLife.Data
         public DbSet<OyoLife.Models.User> User { get; set; }
 
         public DbSet<OyoLife.Models.PG> PG { get; set; }
-
         public DbSet<OyoLife.Models.Booking> Booking { get; set; }
+        public DbSet<OyoLife.Models.Dealer> Dealer { get; set; }
     }
 }

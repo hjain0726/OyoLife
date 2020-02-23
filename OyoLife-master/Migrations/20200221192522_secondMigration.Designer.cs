@@ -10,8 +10,8 @@ using OyoLife.Data;
 namespace OyoLife.Migrations
 {
     [DbContext(typeof(OyoLifeContext))]
-    [Migration("20200220101345_ThirdMigration")]
-    partial class ThirdMigration
+    [Migration("20200221192522_secondMigration")]
+    partial class secondMigration
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -79,11 +79,6 @@ namespace OyoLife.Migrations
             modelBuilder.Entity("OyoLife.Models.Dealer", b =>
                 {
                     b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int")
-                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
-
-                    b.Property<int?>("Dealer_AddressId")
                         .HasColumnType("int");
 
                     b.Property<string>("Dealer_Email")
@@ -92,12 +87,22 @@ namespace OyoLife.Migrations
                     b.Property<string>("Dealer_Name")
                         .HasColumnType("nvarchar(max)");
 
+                    b.Property<string>("Dealer_Password")
+                        .HasColumnType("nvarchar(max)");
+
                     b.Property<string>("Dealer_PhoneNo")
                         .HasColumnType("nvarchar(max)");
 
-                    b.HasKey("Id");
+                    b.Property<int>("Dealer_age")
+                        .HasColumnType("int");
 
-                    b.HasIndex("Dealer_AddressId");
+                    b.Property<string>("Dealer_gender")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Role")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.HasKey("Id");
 
                     b.ToTable("Dealer");
                 });
@@ -135,14 +140,14 @@ namespace OyoLife.Migrations
                     b.Property<int>("DealerId")
                         .HasColumnType("int");
 
-                    b.Property<int?>("Pg_AdressId")
+                    b.Property<int?>("Pg_AddressId")
                         .HasColumnType("int");
 
                     b.Property<string>("Pg_Location")
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<int>("Pg_Name")
-                        .HasColumnType("int");
+                    b.Property<string>("Pg_Name")
+                        .HasColumnType("nvarchar(max)");
 
                     b.Property<double>("Pg_Price")
                         .HasColumnType("float");
@@ -157,7 +162,7 @@ namespace OyoLife.Migrations
 
                     b.HasIndex("DealerId");
 
-                    b.HasIndex("Pg_AdressId");
+                    b.HasIndex("Pg_AddressId");
 
                     b.ToTable("PG");
                 });
@@ -228,13 +233,6 @@ namespace OyoLife.Migrations
                         .HasForeignKey("UserId");
                 });
 
-            modelBuilder.Entity("OyoLife.Models.Dealer", b =>
-                {
-                    b.HasOne("OyoLife.Models.Address", "Dealer_Address")
-                        .WithMany()
-                        .HasForeignKey("Dealer_AddressId");
-                });
-
             modelBuilder.Entity("OyoLife.Models.Facility", b =>
                 {
                     b.HasOne("OyoLife.Models.PG", null)
@@ -245,14 +243,14 @@ namespace OyoLife.Migrations
             modelBuilder.Entity("OyoLife.Models.PG", b =>
                 {
                     b.HasOne("OyoLife.Models.Dealer", "Dealer")
-                        .WithMany()
+                        .WithMany("PGs")
                         .HasForeignKey("DealerId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.HasOne("OyoLife.Models.Address", "Pg_Adress")
+                    b.HasOne("OyoLife.Models.Address", "Pg_Address")
                         .WithMany()
-                        .HasForeignKey("Pg_AdressId");
+                        .HasForeignKey("Pg_AddressId");
                 });
 
             modelBuilder.Entity("OyoLife.Models.PgImage", b =>

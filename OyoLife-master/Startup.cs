@@ -32,7 +32,7 @@ namespace OyoLife
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddCors();
-            services.AddControllers();
+            services.AddControllers().AddNewtonsoftJson(x => x.SerializerSettings.ReferenceLoopHandling = Newtonsoft.Json.ReferenceLoopHandling.Ignore);
 
             services.AddDbContext<OyoLifeContext>(options =>
                     options.UseSqlServer(Configuration.GetConnectionString("DefaultConnection")));

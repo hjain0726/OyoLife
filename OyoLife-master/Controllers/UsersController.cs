@@ -87,6 +87,57 @@ namespace OyoLife.Controllers
             return NoContent();
         }
 
+        // PUT: api/Users/EditRole/5
+
+        [Authorize(Roles = Role.Admin)]
+        [HttpPut("EditRole/{id}")]
+        public async Task<ActionResult<ResponseMsg>> EditUserRole(int id)
+        {
+            var user = _context.User.Find(id);
+            if (id != user.Id)
+            {
+                return BadRequest();
+            }
+
+            user.Role = Role.Dealer;
+            _context.Entry(user).State = EntityState.Modified;
+
+            try
+            {
+                await _context.SaveChangesAsync();
+                Dealer dealer = new Dealer
+                {
+                    Id = user.Id,
+                    Dealer_Name = user.user_name,
+                    Dealer_Email = user.User_Email,
+                    Dealer_Password = user.User_Password,
+                    Dealer_age = user.user_age,
+                    Dealer_gender = user.user_gender,
+                    Dealer_PhoneNo = user.user_phone,
+                    Role = Role.Dealer
+                };
+                _context.Dealer.Add(dealer);
+                await _context.SaveChangesAsync();
+
+            }
+            catch (DbUpdateConcurrencyException)
+            {
+                if (!UserExists(id))
+                {
+                    return NotFound();
+                }
+                else
+                {
+                    throw;
+                }
+            }
+            var msg = new ResponseMsg
+            {   Success=true,
+                Message="Role changed successfully"
+            };
+            return msg;
+        }
+
         // POST: api/Users/Register
         [AllowAnonymous]
         [Route("Register")]

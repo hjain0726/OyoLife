@@ -9,6 +9,6 @@ namespace OyoLife.Models
     {
         public const string Admin = "Admin";
         public const string User = "User";
-
+        public const string Dealer = "Dealer";
     }
 }

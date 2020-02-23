@@ -3,7 +3,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 
 namespace OyoLife.Migrations
 {
-    public partial class ThirdMigration : Migration
+    public partial class secondMigration : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
@@ -26,6 +26,24 @@ namespace OyoLife.Migrations
                 });
 
             migrationBuilder.CreateTable(
+                name: "Dealer",
+                columns: table => new
+                {
+                    Id = table.Column<int>(nullable: false),
+                    Dealer_Name = table.Column<string>(nullable: true),
+                    Dealer_Email = table.Column<string>(nullable: true),
+                    Dealer_Password = table.Column<string>(nullable: true),
+                    Dealer_PhoneNo = table.Column<string>(nullable: true),
+                    Dealer_gender = table.Column<string>(nullable: true),
+                    Dealer_age = table.Column<int>(nullable: false),
+                    Role = table.Column<string>(nullable: true)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_Dealer", x => x.Id);
+                });
+
+            migrationBuilder.CreateTable(
                 name: "User",
                 columns: table => new
                 {
@@ -45,39 +63,17 @@ namespace OyoLife.Migrations
                 });
 
             migrationBuilder.CreateTable(
-                name: "Dealer",
-                columns: table => new
-                {
-                    Id = table.Column<int>(nullable: false)
-                        .Annotation("SqlServer:Identity", "1, 1"),
-                    Dealer_Name = table.Column<string>(nullable: true),
-                    Dealer_Email = table.Column<string>(nullable: true),
-                    Dealer_PhoneNo = table.Column<string>(nullable: true),
-                    Dealer_AddressId = table.Column<int>(nullable: true)
-                },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_Dealer", x => x.Id);
-                    table.ForeignKey(
-                        name: "FK_Dealer_Address_Dealer_AddressId",
-                        column: x => x.Dealer_AddressId,
-                        principalTable: "Address",
-                        principalColumn: "Id",
-                        onDelete: ReferentialAction.Restrict);
-                });
-
-            migrationBuilder.CreateTable(
                 name: "PG",
                 columns: table => new
                 {
                     Id = table.Column<int>(nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
-                    Pg_Name = table.Column<int>(nullable: false),
+                    Pg_Name = table.Column<string>(nullable: true),
                     Pg_Price = table.Column<double>(nullable: false),
                     Pg_Type = table.Column<string>(nullable: true),
                     Pg_Sharing = table.Column<string>(nullable: true),
                     About_Pg = table.Column<string>(nullable: true),
-                    Pg_AdressId = table.Column<int>(nullable: true),
+                    Pg_AddressId = table.Column<int>(nullable: true),
                     Pg_Location = table.Column<string>(nullable: true),
                     DealerId = table.Column<int>(nullable: false)
                 },
@@ -91,8 +87,8 @@ namespace OyoLife.Migrations
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
                     table.ForeignKey(
-                        name: "FK_PG_Address_Pg_AdressId",
-                        column: x => x.Pg_AdressId,
+                        name: "FK_PG_Address_Pg_AddressId",
+                        column: x => x.Pg_AddressId,
                         principalTable: "Address",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Restrict);
@@ -176,11 +172,6 @@ namespace OyoLife.Migrations
                 column: "UserId");
 
             migrationBuilder.CreateIndex(
-                name: "IX_Dealer_Dealer_AddressId",
-                table: "Dealer",
-                column: "Dealer_AddressId");
-
-            migrationBuilder.CreateIndex(
                 name: "IX_Facility_PGId",
                 table: "Facility",
                 column: "PGId");
@@ -191,9 +182,9 @@ namespace OyoLife.Migrations
                 column: "DealerId");
 
             migrationBuilder.CreateIndex(
-                name: "IX_PG_Pg_AdressId",
+                name: "IX_PG_Pg_AddressId",
                 table: "PG",
-                column: "Pg_AdressId");
+                column: "Pg_AddressId");
 
             migrationBuilder.CreateIndex(
                 name: "IX_PgImage_PGId",
