@@ -19,9 +19,10 @@ namespace OyoLife.Models
         public int Dealer_age { get; set; }
         public string Role { get; set; }
 
+        public int PerDay_DealingCapacity { get; set; }
         public ICollection<PG> PGs { get; set; }
 
-        //public List<PG> PgList { get; set; }
+        public ICollection<Booking> Bookings { get; set; }
 
     }
 }

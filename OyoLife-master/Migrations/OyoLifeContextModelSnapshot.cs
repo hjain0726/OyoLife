@@ -38,6 +38,9 @@ namespace OyoLife.Migrations
                     b.Property<string>("Line2")
                         .HasColumnType("nvarchar(max)");
 
+                    b.Property<int>("PGId")
+                        .HasColumnType("int");
+
                     b.Property<string>("State")
                         .HasColumnType("nvarchar(max)");
 
@@ -45,6 +48,9 @@ namespace OyoLife.Migrations
                         .HasColumnType("nvarchar(max)");
 
                     b.HasKey("Id");
+
+                    b.HasIndex("PGId")
+                        .IsUnique();
 
                     b.ToTable("Address");
                 });
@@ -59,19 +65,46 @@ namespace OyoLife.Migrations
                     b.Property<DateTime>("Booking_Date")
                         .HasColumnType("datetime2");
 
-                    b.Property<int>("PGID")
+                    b.Property<string>("Booking_Time")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<int>("DealerId")
                         .HasColumnType("int");
 
-                    b.Property<int?>("UserId")
+                    b.Property<int>("PGId")
+                        .HasColumnType("int");
+
+                    b.Property<int>("UserId")
                         .HasColumnType("int");
 
                     b.HasKey("Id");
 
-                    b.HasIndex("PGID");
+                    b.HasIndex("DealerId");
 
                     b.HasIndex("UserId");
 
                     b.ToTable("Booking");
+                });
+
+            modelBuilder.Entity("OyoLife.Models.BookingAvailability", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int")
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.Property<DateTime>("BookingDate")
+                        .HasColumnType("datetime2");
+
+                    b.Property<int>("DealerId")
+                        .HasColumnType("int");
+
+                    b.Property<int>("No_Of_Bookings")
+                        .HasColumnType("int");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("BookingAvailabilities");
                 });
 
             modelBuilder.Entity("OyoLife.Models.Dealer", b =>
@@ -97,6 +130,9 @@ namespace OyoLife.Migrations
                     b.Property<string>("Dealer_gender")
                         .HasColumnType("nvarchar(max)");
 
+                    b.Property<int>("PerDay_DealingCapacity")
+                        .HasColumnType("int");
+
                     b.Property<string>("Role")
                         .HasColumnType("nvarchar(max)");
 
@@ -115,14 +151,14 @@ namespace OyoLife.Migrations
                     b.Property<string>("Facility_Name")
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<int?>("PGId")
+                    b.Property<int>("PGId")
                         .HasColumnType("int");
 
                     b.HasKey("Id");
 
                     b.HasIndex("PGId");
 
-                    b.ToTable("Facility");
+                    b.ToTable("Facilities");
                 });
 
             modelBuilder.Entity("OyoLife.Models.PG", b =>
@@ -136,9 +172,6 @@ namespace OyoLife.Migrations
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<int>("DealerId")
-                        .HasColumnType("int");
-
-                    b.Property<int?>("Pg_AddressId")
                         .HasColumnType("int");
 
                     b.Property<string>("Pg_Location")
@@ -160,8 +193,6 @@ namespace OyoLife.Migrations
 
                     b.HasIndex("DealerId");
 
-                    b.HasIndex("Pg_AddressId");
-
                     b.ToTable("PG");
                 });
 
@@ -175,14 +206,14 @@ namespace OyoLife.Migrations
                     b.Property<string>("Image_Url")
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<int?>("PGId")
+                    b.Property<int>("PGId")
                         .HasColumnType("int");
 
                     b.HasKey("Id");
 
                     b.HasIndex("PGId");
 
-                    b.ToTable("PgImage");
+                    b.ToTable("PgImages");
                 });
 
             modelBuilder.Entity("OyoLife.Models.User", b =>
@@ -218,24 +249,37 @@ namespace OyoLife.Migrations
                     b.ToTable("User");
                 });
 
-            modelBuilder.Entity("OyoLife.Models.Booking", b =>
+            modelBuilder.Entity("OyoLife.Models.Address", b =>
                 {
                     b.HasOne("OyoLife.Models.PG", "PG")
-                        .WithMany()
-                        .HasForeignKey("PGID")
+                        .WithOne("Pg_Address")
+                        .HasForeignKey("OyoLife.Models.Address", "PGId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+                });
+
+            modelBuilder.Entity("OyoLife.Models.Booking", b =>
+                {
+                    b.HasOne("OyoLife.Models.Dealer", "Dealer")
+                        .WithMany("Bookings")
+                        .HasForeignKey("DealerId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.HasOne("OyoLife.Models.User", null)
+                    b.HasOne("OyoLife.Models.User", "User")
                         .WithMany("Bookings")
-                        .HasForeignKey("UserId");
+                        .HasForeignKey("UserId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
                 });
 
             modelBuilder.Entity("OyoLife.Models.Facility", b =>
                 {
-                    b.HasOne("OyoLife.Models.PG", null)
-                        .WithMany("Pg_Facilites")
-                        .HasForeignKey("PGId");
+                    b.HasOne("OyoLife.Models.PG", "PG")
+                        .WithMany("Facilities")
+                        .HasForeignKey("PGId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
                 });
 
             modelBuilder.Entity("OyoLife.Models.PG", b =>
@@ -245,17 +289,15 @@ namespace OyoLife.Migrations
                         .HasForeignKey("DealerId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
-
-                    b.HasOne("OyoLife.Models.Address", "Pg_Address")
-                        .WithMany()
-                        .HasForeignKey("Pg_AddressId");
                 });
 
             modelBuilder.Entity("OyoLife.Models.PgImage", b =>
                 {
-                    b.HasOne("OyoLife.Models.PG", null)
-                        .WithMany("Pg_Images")
-                        .HasForeignKey("PGId");
+                    b.HasOne("OyoLife.Models.PG", "PG")
+                        .WithMany("PgImages")
+                        .HasForeignKey("PGId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
                 });
 #pragma warning restore 612, 618
         }

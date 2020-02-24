@@ -18,7 +18,9 @@ namespace OyoLife.Models
         public int user_age { get; set; }
         public string user_phone { get; set; }
         public string Role { get; set; }
-        public List<Booking> Bookings { get; set; }
+
+        public ICollection<Booking> Bookings { get; set; }
+
 
 
         public async Task<string> Encrypt(string clearText)

@@ -16,6 +16,8 @@ using OyoLife.Helpers;
 using System.Text;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.IdentityModel.Tokens;
+using OyoLife.Interfaces;
+using OyoLife.Repositories;
 
 namespace OyoLife
 {
@@ -36,6 +38,9 @@ namespace OyoLife
 
             services.AddDbContext<OyoLifeContext>(options =>
                     options.UseSqlServer(Configuration.GetConnectionString("DefaultConnection")));
+
+            services.AddScoped<IPgImagesRepository, PgImagesRepository>();
+            services.AddScoped<IPgFacilityRepository, PgFacilityRepository>();
 
             var appSettingsSection = Configuration.GetSection("AppSettings");
             services.Configure<AppSettings>(appSettingsSection);

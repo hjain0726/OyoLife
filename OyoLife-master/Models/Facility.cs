@@ -9,5 +9,7 @@ namespace OyoLife.Models
     {
         public int Id { get; set; }
         public string Facility_Name { get; set; }
+        public int PGId { get; set; }
+        public PG PG { get; set; }
     }
 }

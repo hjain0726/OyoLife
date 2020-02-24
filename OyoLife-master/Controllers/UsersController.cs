@@ -114,7 +114,8 @@ namespace OyoLife.Controllers
                     Dealer_age = user.user_age,
                     Dealer_gender = user.user_gender,
                     Dealer_PhoneNo = user.user_phone,
-                    Role = Role.Dealer
+                    Role = Role.Dealer,
+                    PerDay_DealingCapacity=5
                 };
                 _context.Dealer.Add(dealer);
                 await _context.SaveChangesAsync();

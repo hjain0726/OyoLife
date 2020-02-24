@@ -7,6 +7,7 @@ using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using OyoLife.Data;
+using OyoLife.Interfaces;
 using OyoLife.Models;
 
 namespace OyoLife.Controllers
@@ -17,17 +18,30 @@ namespace OyoLife.Controllers
     public class PGsController : ControllerBase
     {
         private readonly OyoLifeContext _context;
+        private readonly IPgImagesRepository _IPgImagesRepository;
+        private readonly IPgFacilityRepository _IPgFacilityRepository;
 
-        public PGsController(OyoLifeContext context)
+        public PGsController(OyoLifeContext context, IPgImagesRepository IPgImagesRepository,IPgFacilityRepository IPgFacilityRepository)
         {
             _context = context;
+            _IPgImagesRepository = IPgImagesRepository;
+            _IPgFacilityRepository = IPgFacilityRepository;
         }
 
         // GET: api/PGs
         [HttpGet]
         public async Task<ActionResult<IEnumerable<PG>>> GetPG()
         {
-            return await _context.PG.ToListAsync();
+            var PgList = _context.PG.ToList();
+            foreach(PG pg in PgList)
+            {
+                pg.PgImages = _IPgImagesRepository.GetPgImages(pg);
+                pg.Facilities = _IPgFacilityRepository.GetPgFacilities(pg);
+                pg.Pg_Address = _context.Address.FirstOrDefault(a => a.PGId == pg.Id);
+                pg.Dealer=_context.Dealer.FirstOrDefault(a => a.Id == pg.DealerId);
+            }
+            return PgList;
+            //return await _context.PG.ToListAsync();
         }
 
         // GET: api/PGs/5
@@ -56,7 +70,6 @@ namespace OyoLife.Controllers
             }
 
             _context.Entry(pG).State = EntityState.Modified;
-
             try
             {
                 await _context.SaveChangesAsync();
