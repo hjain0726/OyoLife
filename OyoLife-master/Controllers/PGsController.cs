@@ -68,8 +68,79 @@ namespace OyoLife.Controllers
             {
                 return BadRequest();
             }
+           
+            var ExistingPgImages = _IPgImagesRepository.GetPgImages(pG);
+            var ExistingPgFacilities = _IPgFacilityRepository.GetPgFacilities(pG);
 
+            //Edit Address
+            Address addr = pG.Pg_Address;
+            _context.Entry(addr).State = EntityState.Modified;
+
+            //For editing Images
+            foreach (var image in ExistingPgImages)
+            {
+                if (!pG.PgImages.Any(c => c.Image_Url == image.Image_Url))
+                {
+                    _context.PgImages.Remove(image);
+                    Console.WriteLine("Image removed");
+                }
+                    
+            }
+
+            foreach (var image in pG.PgImages)
+            {
+                var existingImage = ExistingPgImages.FirstOrDefault(x => x.Image_Url == image.Image_Url);
+
+                if (existingImage != null)
+                {
+                    Console.WriteLine("Images exist");
+                }
+                else
+                {
+                    // Insert child
+                    var PgImage = new PgImage
+                    {
+                        PGId=pG.Id,
+                        Image_Url = image.Image_Url
+                    };
+                    _context.PgImages.Add(PgImage);
+                    Console.WriteLine("New Image added");
+                }
+            }
+
+            //for Editing Facility
+            foreach (var facility in ExistingPgFacilities)
+            {
+                if (!pG.Facilities.Any(c => c.Facility_Name == facility.Facility_Name))
+                {
+                    _context.Facilities.Remove(facility);
+                    Console.WriteLine("facility removed");
+                }
+
+            }
+
+            foreach (var facility in pG.Facilities)
+            {
+                var existingFacility = ExistingPgFacilities.FirstOrDefault(x => x.Facility_Name == facility.Facility_Name);
+
+                if (existingFacility != null)
+                {
+                    Console.WriteLine("Facility exist");
+                }
+                else
+                {
+                    // Insert child
+                    var PgFacility = new Facility
+                    {
+                        PGId = pG.Id,
+                        Facility_Name=facility.Facility_Name
+                    };
+                    _context.Facilities.Add(PgFacility);
+                    Console.WriteLine("New Facility added");
+                }
+            }
             _context.Entry(pG).State = EntityState.Modified;
+
             try
             {
                 await _context.SaveChangesAsync();

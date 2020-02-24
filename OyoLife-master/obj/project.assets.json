@@ -8927,19 +8927,19 @@
     ]
   },
   "packageFolders": {
-    "C:\\Users\\INT156\\.nuget\\packages\\": {}
+    "C:\\Users\\harsh\\.nuget\\packages\\": {}
   },
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "C:\\Users\\INT156\\source\\repos\\OyoLife-master (1)\\OyoLife-master\\OyoLife-master\\OyoLife.csproj",
+      "projectUniqueName": "C:\\Users\\harsh\\source\\repos\\Oyo_Life\\OyoLife\\OyoLife-master\\OyoLife.csproj",
       "projectName": "OyoLife",
-      "projectPath": "C:\\Users\\INT156\\source\\repos\\OyoLife-master (1)\\OyoLife-master\\OyoLife-master\\OyoLife.csproj",
-      "packagesPath": "C:\\Users\\INT156\\.nuget\\packages\\",
-      "outputPath": "C:\\Users\\INT156\\source\\repos\\OyoLife-master (1)\\OyoLife-master\\OyoLife-master\\obj\\",
+      "projectPath": "C:\\Users\\harsh\\source\\repos\\Oyo_Life\\OyoLife\\OyoLife-master\\OyoLife.csproj",
+      "packagesPath": "C:\\Users\\harsh\\.nuget\\packages\\",
+      "outputPath": "C:\\Users\\harsh\\source\\repos\\Oyo_Life\\OyoLife\\OyoLife-master\\obj\\",
       "projectStyle": "PackageReference",
       "configFilePaths": [
-        "C:\\Users\\INT156\\AppData\\Roaming\\NuGet\\NuGet.Config",
+        "C:\\Users\\harsh\\AppData\\Roaming\\NuGet\\NuGet.Config",
         "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
       ],
       "originalTargetFrameworks": [

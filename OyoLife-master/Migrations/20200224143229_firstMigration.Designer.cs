@@ -10,8 +10,8 @@ using OyoLife.Data;
 namespace OyoLife.Migrations
 {
     [DbContext(typeof(OyoLifeContext))]
-    [Migration("20200224072423_firstmigration")]
-    partial class firstmigration
+    [Migration("20200224143229_firstMigration")]
+    partial class firstMigration
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
