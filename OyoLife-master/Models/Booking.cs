@@ -10,6 +10,7 @@ namespace OyoLife.Models
         public int Id { get; set; }
         public DateTime Booking_Date { get; set; }
         public string Booking_Time { get; set; }
+        public string BookingStatus { get; set; }
         public int PGId { get; set; }
         public int UserId{ get; set; }
         public User User { get; set; }

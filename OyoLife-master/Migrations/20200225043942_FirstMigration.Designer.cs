@@ -10,8 +10,8 @@ using OyoLife.Data;
 namespace OyoLife.Migrations
 {
     [DbContext(typeof(OyoLifeContext))]
-    [Migration("20200224143229_firstMigration")]
-    partial class firstMigration
+    [Migration("20200225043942_FirstMigration")]
+    partial class FirstMigration
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -63,6 +63,9 @@ namespace OyoLife.Migrations
                         .ValueGeneratedOnAdd()
                         .HasColumnType("int")
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.Property<string>("BookingStatus")
+                        .HasColumnType("nvarchar(max)");
 
                     b.Property<DateTime>("Booking_Date")
                         .HasColumnType("datetime2");

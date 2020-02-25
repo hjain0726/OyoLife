@@ -10,7 +10,6 @@ namespace OyoLife.Models
         public int Id { get; set; }
         public DateTime BookingDate { get; set; }
         public int No_Of_Bookings { get; set; }
-
         public int DealerId { get; set; }
     }
 }

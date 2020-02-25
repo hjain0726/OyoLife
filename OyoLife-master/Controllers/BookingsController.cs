@@ -7,6 +7,7 @@ using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using OyoLife.Data;
+using OyoLife.Helpers;
 using OyoLife.Models;
 
 namespace OyoLife.Controllers
@@ -45,64 +46,101 @@ namespace OyoLife.Controllers
             return booking;
         }
 
-        // PUT: api/Bookings/5
-        // To protect from overposting attacks, please enable the specific properties you want to bind to, for
-        // more details see https://aka.ms/RazorPagesCRUD.
-        [Authorize(Roles = Role.Admin)]
-        [HttpPut("{id}")]
-        public async Task<IActionResult> PutBooking(int id, Booking booking)
-        {
-            if (id != booking.Id)
-            {
-                return BadRequest();
-            }
-
-            _context.Entry(booking).State = EntityState.Modified;
-
-            try
-            {
-                await _context.SaveChangesAsync();
-            }
-            catch (DbUpdateConcurrencyException)
-            {
-                if (!BookingExists(id))
-                {
-                    return NotFound();
-                }
-                else
-                {
-                    throw;
-                }
-            }
-
-            return NoContent();
-        }
-
+     
         // POST: api/Bookings
         // To protect from overposting attacks, please enable the specific properties you want to bind to, for
         // more details see https://aka.ms/RazorPagesCRUD.
         [Authorize(Roles = Role.User)]
         [HttpPost]
-        public async Task<ActionResult<Booking>> PostBooking(Booking booking)
+        public async Task<ActionResult<BookingMsg>> PostBooking(Booking booking)
         {
-            _context.Booking.Add(booking);
-            await _context.SaveChangesAsync();
+            BookingAvailability bookingAvailability=_context.BookingAvailabilities.SingleOrDefault(d => d.BookingDate == booking.Booking_Date && d.DealerId==booking.DealerId);
+            Dealer dealer = _context.Dealer.SingleOrDefault(d=>d.Id==booking.DealerId);
 
-            return CreatedAtAction("GetBooking", new { id = booking.Id }, booking);
+            if (bookingAvailability == null)
+            {
+                BookingAvailability bookAvail = new BookingAvailability
+                {
+                    BookingDate=booking.Booking_Date,
+                    DealerId=booking.DealerId,
+                    No_Of_Bookings=1
+                };
+
+                booking.BookingStatus = "Open";
+
+                _context.BookingAvailabilities.Add(bookAvail);
+                _context.Booking.Add(booking);
+
+                var msg = new BookingMsg
+                {
+                    Success = true,
+                    msg = "Booking Done successfully",
+                    booking=booking
+                };
+
+                await _context.SaveChangesAsync();
+
+                return msg;
+            }
+            else if (bookingAvailability.No_Of_Bookings<dealer.PerDay_DealingCapacity)
+            {
+                bookingAvailability.No_Of_Bookings += 1;
+                booking.BookingStatus = "Open";
+
+                _context.Entry(bookingAvailability).State = EntityState.Modified;
+                _context.Booking.Add(booking);
+
+                var msg = new BookingMsg
+                {
+                    Success = true,
+                    msg = "Booking Done Suceesfully",
+                    booking = booking
+                };
+
+                await _context.SaveChangesAsync();
+
+                return msg;
+            }
+            else
+            {
+                var msg = new BookingMsg
+                {
+                    Success=false,
+                    msg="Booking Not available"
+                };
+                return msg;
+            }
+            
+
+            //return CreatedAtAction("GetBooking", new { id = booking.Id }, booking);
         }
 
-        // DELETE: api/Bookings/5
-        [HttpDelete("{id}")]
-        public async Task<ActionResult<Booking>> DeleteBooking(int id)
+        //GET: api/Bookings/UserBookings/4
+        [Authorize(Roles = Role.User)]
+        [HttpGet("UserBookings/{userId}")]
+        public async Task<ActionResult<List<Booking>>> GetUserBookings(int userId)
         {
-            var booking = await _context.Booking.FindAsync(id);
+            var booking= _context.Booking.Where(b=>b.UserId==userId).ToList();
+
             if (booking == null)
             {
                 return NotFound();
             }
 
-            _context.Booking.Remove(booking);
-            await _context.SaveChangesAsync();
+            return booking;
+        }
+
+        //GET: api/Bookings/DealerBookings/4
+        [Authorize(Roles = Role.Dealer)]
+        [HttpGet("DealerBookings/{dealerId}")]
+        public async Task<ActionResult<List<Booking>>> GetDealerBookings(int dealerId)
+        {
+            var booking = _context.Booking.Where(b => b.UserId == dealerId).ToList();
+
+            if (booking == null)
+            {
+                return NotFound();
+            }
 
             return booking;
         }

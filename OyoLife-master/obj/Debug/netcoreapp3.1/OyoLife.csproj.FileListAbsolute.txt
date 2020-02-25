@@ -750,3 +750,6 @@ C:\Users\harsh\source\repos\Oyo_Life\OyoLife\OyoLife-master\obj\Debug\netcoreapp
 C:\Users\harsh\source\repos\Oyo_Life\OyoLife\OyoLife-master\obj\Debug\netcoreapp3.1\OyoLife.csproj.CopyComplete
 C:\Users\harsh\source\repos\Oyo_Life\OyoLife\OyoLife-master\obj\Debug\netcoreapp3.1\OyoLife.dll
 C:\Users\harsh\source\repos\Oyo_Life\OyoLife\OyoLife-master\obj\Debug\netcoreapp3.1\OyoLife.pdb
+C:\Users\INT156\source\repos\OyoLife-master\bin\Debug\netcoreapp3.1\Microsoft.AspNetCore.JsonPatch.dll
+C:\Users\INT156\source\repos\OyoLife-master\bin\Debug\netcoreapp3.1\Microsoft.AspNetCore.Mvc.NewtonsoftJson.dll
+C:\Users\INT156\source\repos\OyoLife-master\bin\Debug\netcoreapp3.1\Newtonsoft.Json.Bson.dll

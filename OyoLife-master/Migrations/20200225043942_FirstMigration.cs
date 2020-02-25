@@ -3,7 +3,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 
 namespace OyoLife.Migrations
 {
-    public partial class firstMigration : Migration
+    public partial class FirstMigration : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
@@ -93,6 +93,7 @@ namespace OyoLife.Migrations
                         .Annotation("SqlServer:Identity", "1, 1"),
                     Booking_Date = table.Column<DateTime>(nullable: false),
                     Booking_Time = table.Column<string>(nullable: true),
+                    BookingStatus = table.Column<string>(nullable: true),
                     PGId = table.Column<int>(nullable: false),
                     UserId = table.Column<int>(nullable: false),
                     DealerId = table.Column<int>(nullable: false)

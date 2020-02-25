@@ -29,6 +29,7 @@ namespace OyoLife.Controllers
         }
 
         // GET: api/PGs
+        [Authorize(Roles = Role.Admin +","+Role.User)]
         [HttpGet]
         public async Task<ActionResult<IEnumerable<PG>>> GetPG()
         {
@@ -44,7 +45,26 @@ namespace OyoLife.Controllers
             //return await _context.PG.ToListAsync();
         }
 
+        // GET: api/PGs/DealerPgs/2
+        [Authorize(Roles = Role.Dealer)]
+        [HttpGet("DealerPgs/{DealerId}")]
+        public async Task<ActionResult<IEnumerable<PG>>> GetDealerPg(int DealerId)
+        {
+            var PgList = _context.PG.Where(P => P.DealerId == DealerId).ToList();
+            //var PgList = _context.PG.ToList();
+            foreach (PG pg in PgList)
+            {
+                pg.PgImages = _IPgImagesRepository.GetPgImages(pg);
+                pg.Facilities = _IPgFacilityRepository.GetPgFacilities(pg);
+                pg.Pg_Address = _context.Address.FirstOrDefault(a => a.PGId == pg.Id);
+                pg.Dealer = _context.Dealer.FirstOrDefault(a => a.Id == pg.DealerId);
+            }
+            return PgList;
+            //return await _context.PG.ToListAsync();
+        }
+
         // GET: api/PGs/5
+        [Authorize(Roles = Role.Admin + "," + Role.User)]
         [HttpGet("{id}")]
         public async Task<ActionResult<PG>> GetPG(int id)
         {
@@ -61,6 +81,7 @@ namespace OyoLife.Controllers
         // PUT: api/PGs/5
         // To protect from overposting attacks, please enable the specific properties you want to bind to, for
         // more details see https://aka.ms/RazorPagesCRUD.
+        [Authorize(Roles = Role.Dealer)]
         [HttpPut("{id}")]
         public async Task<IActionResult> PutPG(int id, PG pG)
         {
@@ -163,16 +184,19 @@ namespace OyoLife.Controllers
         // POST: api/PGs
         // To protect from overposting attacks, please enable the specific properties you want to bind to, for
         // more details see https://aka.ms/RazorPagesCRUD.
+        [Authorize(Roles = Role.Dealer)]
         [HttpPost]
         public async Task<ActionResult<PG>> PostPG(PG pG)
         {
-            _context.PG.Add(pG);
-            await _context.SaveChangesAsync();
+                // Do something with the product (not shown).
+                _context.PG.Add(pG);
+                await _context.SaveChangesAsync();
 
-            return CreatedAtAction("GetPG", new { id = pG.Id }, pG);
+                return CreatedAtAction("GetPG", new { id = pG.Id }, pG);
         }
 
         // DELETE: api/PGs/5
+        [Authorize(Roles = Role.Dealer)]
         [HttpDelete("{id}")]
         public async Task<ActionResult<PG>> DeletePG(int id)
         {

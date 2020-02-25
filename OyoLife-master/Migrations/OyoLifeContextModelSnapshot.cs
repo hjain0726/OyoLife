@@ -62,6 +62,9 @@ namespace OyoLife.Migrations
                         .HasColumnType("int")
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
+                    b.Property<string>("BookingStatus")
+                        .HasColumnType("nvarchar(max)");
+
                     b.Property<DateTime>("Booking_Date")
                         .HasColumnType("datetime2");
 
