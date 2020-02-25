@@ -743,7 +743,6 @@ C:\Users\harsh\source\repos\Oyo_Life\OyoLife\OyoLife-master\bin\Debug\netcoreapp
 C:\Users\harsh\source\repos\Oyo_Life\OyoLife\OyoLife-master\obj\Debug\netcoreapp3.1\OyoLife.csprojAssemblyReference.cache
 C:\Users\harsh\source\repos\Oyo_Life\OyoLife\OyoLife-master\obj\Debug\netcoreapp3.1\staticwebassets\OyoLife.StaticWebAssets.Manifest.cache
 C:\Users\harsh\source\repos\Oyo_Life\OyoLife\OyoLife-master\obj\Debug\netcoreapp3.1\staticwebassets\OyoLife.StaticWebAssets.xml
-C:\Users\harsh\source\repos\Oyo_Life\OyoLife\OyoLife-master\obj\Debug\netcoreapp3.1\OyoLife.MvcApplicationPartsAssemblyInfo.cache
 C:\Users\harsh\source\repos\Oyo_Life\OyoLife\OyoLife-master\obj\Debug\netcoreapp3.1\OyoLife.AssemblyInfoInputs.cache
 C:\Users\harsh\source\repos\Oyo_Life\OyoLife\OyoLife-master\obj\Debug\netcoreapp3.1\OyoLife.AssemblyInfo.cs
 C:\Users\harsh\source\repos\Oyo_Life\OyoLife\OyoLife-master\obj\Debug\netcoreapp3.1\OyoLife.RazorTargetAssemblyInfo.cache
@@ -753,3 +752,11 @@ C:\Users\harsh\source\repos\Oyo_Life\OyoLife\OyoLife-master\obj\Debug\netcoreapp
 C:\Users\INT156\source\repos\OyoLife-master\bin\Debug\netcoreapp3.1\Microsoft.AspNetCore.JsonPatch.dll
 C:\Users\INT156\source\repos\OyoLife-master\bin\Debug\netcoreapp3.1\Microsoft.AspNetCore.Mvc.NewtonsoftJson.dll
 C:\Users\INT156\source\repos\OyoLife-master\bin\Debug\netcoreapp3.1\Newtonsoft.Json.Bson.dll
+C:\Users\harsh\source\repos\Oyo_Life\OyoLife\OyoLife-master\bin\Debug\netcoreapp3.1\OyoLife.xml
+C:\Users\harsh\source\repos\Oyo_Life\OyoLife\OyoLife-master\bin\Debug\netcoreapp3.1\Microsoft.OpenApi.dll
+C:\Users\harsh\source\repos\Oyo_Life\OyoLife\OyoLife-master\bin\Debug\netcoreapp3.1\Swashbuckle.AspNetCore.Swagger.dll
+C:\Users\harsh\source\repos\Oyo_Life\OyoLife\OyoLife-master\bin\Debug\netcoreapp3.1\Swashbuckle.AspNetCore.SwaggerGen.dll
+C:\Users\harsh\source\repos\Oyo_Life\OyoLife\OyoLife-master\bin\Debug\netcoreapp3.1\Swashbuckle.AspNetCore.SwaggerUI.dll
+C:\Users\harsh\source\repos\Oyo_Life\OyoLife\OyoLife-master\obj\Debug\netcoreapp3.1\OyoLife.xml
+C:\Users\harsh\source\repos\Oyo_Life\OyoLife\OyoLife-master\obj\Debug\netcoreapp3.1\OyoLife.MvcApplicationPartsAssemblyInfo.cs
+C:\Users\harsh\source\repos\Oyo_Life\OyoLife\OyoLife-master\obj\Debug\netcoreapp3.1\OyoLife.MvcApplicationPartsAssemblyInfo.cache

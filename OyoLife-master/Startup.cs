@@ -18,6 +18,9 @@ using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.IdentityModel.Tokens;
 using OyoLife.Interfaces;
 using OyoLife.Repositories;
+using System.Reflection;
+using System.IO;
+using Microsoft.OpenApi.Models;
 
 namespace OyoLife
 {
@@ -33,6 +36,7 @@ namespace OyoLife
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
+
             services.AddCors();
             services.AddControllers().AddNewtonsoftJson(x => x.SerializerSettings.ReferenceLoopHandling = Newtonsoft.Json.ReferenceLoopHandling.Ignore);
 
@@ -66,6 +70,19 @@ namespace OyoLife
                 };
             });
 
+            services.AddSwaggerGen(c =>
+            {
+                c.SwaggerDoc("v1", new OpenApiInfo
+                {
+                    Version = "v1",
+                    Title = "OYOLIFE API",
+                });
+
+                // Set the comments path for the Swagger JSON and UI.
+                var xmlFile = $"{Assembly.GetExecutingAssembly().GetName().Name}.xml";
+                var xmlPath = Path.Combine(AppContext.BaseDirectory, xmlFile);
+                c.IncludeXmlComments(xmlPath);
+            });
 
         }
 
@@ -76,7 +93,13 @@ namespace OyoLife
             {
                 app.UseDeveloperExceptionPage();
             }
+            app.UseStaticFiles();
 
+            app.UseSwaggerUI(c =>
+            {
+                c.SwaggerEndpoint("/swagger/v1/swagger.json", "My API V1");
+                c.RoutePrefix = string.Empty;
+            });
             app.UseHttpsRedirection();
 
             app.UseRouting();
@@ -89,7 +112,8 @@ namespace OyoLife
             app.UseAuthentication();
             app.UseAuthorization();
 
-
+            app.UseSwagger();
+            
             app.UseEndpoints(endpoints =>
             {
                 endpoints.MapControllers();
