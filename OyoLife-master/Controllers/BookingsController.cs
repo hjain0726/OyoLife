@@ -52,7 +52,7 @@ namespace OyoLife.Controllers
         // more details see https://aka.ms/RazorPagesCRUD.
         [Authorize(Roles = Role.User)]
         [HttpPost]
-        public async Task<ActionResult<BookingMsg>> PostBooking(Booking booking)
+        public async Task<ActionResult> PostBooking(Booking booking)
         {
             BookingAvailability bookingAvailability=_context.BookingAvailabilities.SingleOrDefault(d => d.BookingDate == booking.Booking_Date && d.DealerId==booking.DealerId);
             Dealer dealer = _context.Dealer.SingleOrDefault(d=>d.Id==booking.DealerId);
@@ -71,17 +71,15 @@ namespace OyoLife.Controllers
                 _context.BookingAvailabilities.Add(bookAvail);
                 _context.Booking.Add(booking);
 
-                var msg = new BookingMsg
-                {
-                    Success = true,
-                    msg = "Booking Done successfully",
-                    booking=booking
-                };
-
                 await _context.SaveChangesAsync();
 
-                return msg;
+                return Ok(new ApiResponse(new {
+                    Success = true,
+                    msg = "Booking Done successfully",
+                    booking = booking
+                }));
             }
+
             else if (bookingAvailability.No_Of_Bookings<dealer.PerDay_DealingCapacity)
             {
                 bookingAvailability.No_Of_Bookings += 1;
@@ -90,29 +88,19 @@ namespace OyoLife.Controllers
                 _context.Entry(bookingAvailability).State = EntityState.Modified;
                 _context.Booking.Add(booking);
 
-                var msg = new BookingMsg
-                {
-                    Success = true,
-                    msg = "Booking Done Suceesfully",
-                    booking = booking
-                };
-
                 await _context.SaveChangesAsync();
 
-                return msg;
+                return Ok(new ApiResponse(new
+                {
+                    Success = true,
+                    msg = "Booking Done successfully",
+                    booking = booking
+                })); 
             }
             else
             {
-                var msg = new BookingMsg
-                {
-                    Success=false,
-                    msg="Booking Not available"
-                };
-                return msg;
+                return NotFound(new NotFoundError("Booking Not available"));
             }
-            
-
-            //return CreatedAtAction("GetBooking", new { id = booking.Id }, booking);
         }
 
         //GET: api/Bookings/UserBookings/4

@@ -7,6 +7,7 @@ using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using OyoLife.Data;
+using OyoLife.Helpers;
 using OyoLife.Models;
 
 namespace OyoLife.Controllers
@@ -39,7 +40,7 @@ namespace OyoLife.Controllers
 
             if (user == null)
             {
-                return NotFound();
+                return NotFound(new NotFoundError("The user was not found"));
             }
 
             return user;
@@ -48,7 +49,7 @@ namespace OyoLife.Controllers
         // PUT:api/Admin/EditUserRole/2
         [Authorize(Roles = Role.Admin)]
         [HttpPut("EditUserRole/{id}")]
-        public async Task<ActionResult<ResponseMsg>> EditUserRole(int id)
+        public async Task<ActionResult> EditUserRole(int id)
         {
             var user = _context.User.Find(id);
             if (id != user.Id)
@@ -89,12 +90,10 @@ namespace OyoLife.Controllers
                     throw;
                 }
             }
-            var msg = new ResponseMsg
-            {
+            return Ok(new ApiResponse(new {
                 Success = true,
                 Message = "Role changed successfully"
-            };
-            return msg;
+            }));
         }
 
         // DELETE: api/Admin/Users/3

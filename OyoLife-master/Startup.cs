@@ -95,6 +95,9 @@ namespace OyoLife
             }
             app.UseStaticFiles();
 
+            app.UseExceptionHandler("/errors/500");
+            app.UseStatusCodePagesWithReExecute("/errors/{0}");
+
             app.UseSwaggerUI(c =>
             {
                 c.SwaggerEndpoint("/swagger/v1/swagger.json", "My API V1");

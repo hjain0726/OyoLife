@@ -760,3 +760,10 @@ C:\Users\harsh\source\repos\Oyo_Life\OyoLife\OyoLife-master\bin\Debug\netcoreapp
 C:\Users\harsh\source\repos\Oyo_Life\OyoLife\OyoLife-master\obj\Debug\netcoreapp3.1\OyoLife.xml
 C:\Users\harsh\source\repos\Oyo_Life\OyoLife\OyoLife-master\obj\Debug\netcoreapp3.1\OyoLife.MvcApplicationPartsAssemblyInfo.cs
 C:\Users\harsh\source\repos\Oyo_Life\OyoLife\OyoLife-master\obj\Debug\netcoreapp3.1\OyoLife.MvcApplicationPartsAssemblyInfo.cache
+C:\Users\INT156\source\repos\OyoLife-master\bin\Debug\netcoreapp3.1\OyoLife.xml
+C:\Users\INT156\source\repos\OyoLife-master\bin\Debug\netcoreapp3.1\Microsoft.OpenApi.dll
+C:\Users\INT156\source\repos\OyoLife-master\bin\Debug\netcoreapp3.1\Swashbuckle.AspNetCore.Swagger.dll
+C:\Users\INT156\source\repos\OyoLife-master\bin\Debug\netcoreapp3.1\Swashbuckle.AspNetCore.SwaggerGen.dll
+C:\Users\INT156\source\repos\OyoLife-master\bin\Debug\netcoreapp3.1\Swashbuckle.AspNetCore.SwaggerUI.dll
+C:\Users\INT156\source\repos\OyoLife-master\obj\Debug\netcoreapp3.1\OyoLife.MvcApplicationPartsAssemblyInfo.cs
+C:\Users\INT156\source\repos\OyoLife-master\obj\Debug\netcoreapp3.1\OyoLife.xml

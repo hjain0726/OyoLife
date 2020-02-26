@@ -15,6 +15,7 @@ using Microsoft.IdentityModel.Tokens;
 using OyoLife.Data;
 using OyoLife.Helpers;
 using OyoLife.Models;
+using OyoLife.Services;
 
 namespace OyoLife.Controllers
 {
@@ -24,7 +25,6 @@ namespace OyoLife.Controllers
     {
         private readonly OyoLifeContext _context;
         private readonly AppSettings _appSettings;
-
         public UsersController(OyoLifeContext context, IOptions<AppSettings> appSettings)
         {
             _context = context;
@@ -68,17 +68,12 @@ namespace OyoLife.Controllers
         [AllowAnonymous]
         [Route("Register")]
         [HttpPost]
-        public async Task<ActionResult<ResponseMsg>> Register([FromBody]User user)
+        public async Task<ActionResult> Register([FromBody]User user)
         {
-            var userobj = await _context.User.FirstOrDefaultAsync(u => u.User_Email == user.User_Email) ;
+            var userobj = _context.User.FirstOrDefault(u => u.User_Email == user.User_Email) ;
             if (userobj != null)
             {
-                var msg = new ResponseMsg
-                {
-                    Success = false,
-                    Message= "User Already Exists"
-                };
-                return msg;
+                return NotFound(new NotFoundError("User Already Exists"));
             }
             else
             {
@@ -91,7 +86,7 @@ namespace OyoLife.Controllers
                     user.Role = Role.User;
                 }
                 
-               user.User_Password= await user.Encrypt(user.User_Password);
+               user.User_Password= await UserService.Encrypt(user.User_Password);
                _context.User.Add(user);
                await _context.SaveChangesAsync();
 
@@ -111,18 +106,14 @@ namespace OyoLife.Controllers
                 };
 
                 var token = tokenHandler.CreateToken(tokenDescriptor);
-                var msg = new ResponseMsg
+
+                return Ok(new ApiResponse(new
                 {
                     Token = tokenHandler.WriteToken(token),
-                    Success=true,
                     user_id = userobject.Id,
-                    Message ="successfully register"
-                };
-
-                
-
-                return msg;
-                //return CreatedAtAction("GetUser", new { id = user.Id }, user);
+                    Success = true,
+                    Message = "Successfully Register"
+                }));
             }
            
         }
@@ -130,19 +121,14 @@ namespace OyoLife.Controllers
         [AllowAnonymous]
         [Route("Signin")]
         [HttpPost]
-        public async Task<ActionResult<ResponseMsg>> Signin([FromBody]Login user)
+        public async Task<ActionResult> Signin([FromBody]Login user)
         {
             var userobj = await _context.User.FirstOrDefaultAsync(u => u.User_Email == user.User_Email);
             if (userobj == null)
             {
-                var msg = new ResponseMsg
-                {
-                    Success = false,
-                    Message = "User not found"
-                };
-                return msg;
+                return NotFound(new NotFoundError("User not found"));
             }
-            var password = await user.Decrypt(userobj.User_Password);
+            var password = await UserService.Decrypt(userobj.User_Password);
 
             if (user.User_Password == password)
             {
@@ -160,28 +146,17 @@ namespace OyoLife.Controllers
                 };
 
                 var token = tokenHandler.CreateToken(tokenDescriptor);
-                var msg = new ResponseMsg
-                {
+                return Ok(new ApiResponse( new {
                     Token = tokenHandler.WriteToken(token),
                     user_id = userobj.Id,
                     Success = true,
                     Message = "Successfully Login"
-
-                };
-                return msg;
+                }));
             }
             else
             {
-                var msg = new ResponseMsg
-                {
-                    Success = false,
-                    Message = "Wrong Email or password"
-                };
-                return msg;
+                return NotFound(new NotFoundError("Wrong Email or password"));
             }
-            
-            
-
         }
 
         private bool UserExists(int id)
