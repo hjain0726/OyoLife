@@ -14,6 +14,7 @@ namespace OyoLife.Controllers
     public class ErrorsController : ControllerBase
     {
         [Route("{code}")]
+        [HttpGet]
         public IActionResult Error(int code)
         {
             HttpStatusCode parsedCode = (HttpStatusCode)code;

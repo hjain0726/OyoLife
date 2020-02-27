@@ -93,16 +93,19 @@ namespace OyoLife
             {
                 app.UseDeveloperExceptionPage();
             }
-            app.UseStaticFiles();
 
             app.UseExceptionHandler("/errors/500");
             app.UseStatusCodePagesWithReExecute("/errors/{0}");
+
+            app.UseStaticFiles();
+
 
             app.UseSwaggerUI(c =>
             {
                 c.SwaggerEndpoint("/swagger/v1/swagger.json", "My API V1");
                 c.RoutePrefix = string.Empty;
             });
+
             app.UseHttpsRedirection();
 
             app.UseRouting();
