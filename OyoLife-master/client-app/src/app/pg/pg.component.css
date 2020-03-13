@@ -13,8 +13,8 @@ h6,p{
     margin-left: 10px;
 
 }
-.card-img-top,.d-block{
+.card-img-top{
     width: 100% !important;
     height: 40vh;
     background-size: cover;
-    }
+    }  
