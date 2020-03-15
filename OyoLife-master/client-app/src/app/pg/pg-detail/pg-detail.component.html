@@ -1,0 +1,51 @@
+<br>
+<div class="container" *ngIf="pgDetail!=null">
+    <section>
+        <div class="card text-center">
+            <div class="card-header">
+                <h5 class="card-title">{{pgDetail.pg_Name}}</h5>
+            </div>
+            <div class="card-body">
+                <div class="container">
+                    <div id="carouselExampleControls1" class="carousel slide">
+                        <div class="carousel-inner">
+                            <div class="carousel-item active" [class.active]="i == '0'"
+                                *ngFor="let image of pgDetail.pgImages ; let i=index">
+                                <img class="d-block w-100" [src]="image.image_Url" alt="First slide">
+                            </div>
+                        </div>
+                        <a class="carousel-control-prev" href="#carouselExampleControls1" role="button"
+                            data-slide="prev">
+                            <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                            <span class="sr-only">Previous</span>
+                        </a>
+                        <a class="carousel-control-next" href="#carouselExampleControls1" role="button"
+                            data-slide="next">
+                            <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                            <span class="sr-only">Next</span>
+                        </a>
+                    </div>
+                </div><br>
+
+                <h6>Address: {{pgDetail.pg_Address.line1}}</h6><br>
+                <h6>Location: {{pgDetail.pg_Location}}</h6><br>
+                <h6>Monthly Rent: ₹ {{pgDetail.pg_Price}}</h6><br>
+                <h6>Occupancy: {{pgDetail.pg_Sharing}}</h6><br>
+                <h6>Type: {{pgDetail.pg_Type}}</h6><br>
+                <h6>Dealer Name: {{pgDetail.dealer.dealer_Name}}</h6><br>
+                <h6>Facilities: </h6><br>
+                <ul *ngFor="let facility of pgDetail.facilities">
+                    <li><i class="fa" [ngClass]="{'fa-wifi': facility.facility_Name=='Wifi', 
+                        'fa-tv':  facility.facility_Name=='TV', 
+                        'fa-bed':  facility.facility_Name=='Bed'}" aria-hidden="true"></i> {{facility.facility_Name}}
+                    </li>
+                </ul>
+            </div>
+            <div class="card-footer text-muted">
+                <button class="btn btn-success">Schedule Free Visit</button>&nbsp;&nbsp;
+                <button class="btn btn-primary" (click)="close()">Close</button>
+            </div>
+        </div>
+    </section>
+</div>
+<br><br>

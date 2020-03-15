@@ -1,16 +1,16 @@
 import { NgModule } from "@angular/core";
 import { RouterModule, Routes } from "@angular/router";
-import { PgComponent } from './pg/pg.component';
+import { PgListComponent } from './pg/pg-list/pg-list.component';
 import { HomeComponent } from './core/home/home.component';
 import { SigninComponent } from './auth/signin/signin.component';
 import { SignupComponent } from './auth/signup/signup.component';
-import { PgDetailComponent } from './pg-detail/pg-detail.component';
+import { PgDetailComponent } from './pg/pg-detail/pg-detail.component';
 import { VistBookingComponent } from './visit-booking/vist-booking.component';
 
 const appRoutes: Routes = [
     {
         path: '', component: HomeComponent, children: [
-            { path: '', component: PgComponent }
+            { path: '', component: PgListComponent }
         ]
     },
     { path: 'signin', component: SigninComponent },

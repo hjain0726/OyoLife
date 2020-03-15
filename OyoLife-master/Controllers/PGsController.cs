@@ -29,8 +29,10 @@ namespace OyoLife.Controllers
         }
 
         // GET: api/PGs
-        [Authorize(Roles = Role.Admin +","+Role.User)]
+        //[Authorize(Roles = Role.Admin +","+Role.User)]
+        [AllowAnonymous]
         [HttpGet]
+
         public async Task<ActionResult<IEnumerable<PG>>> GetPG()
         {
             var PgList = _context.PG.ToList();
@@ -64,7 +66,7 @@ namespace OyoLife.Controllers
         }
 
         // GET: api/PGs/5
-        [Authorize(Roles = Role.Admin + "," + Role.User)]
+        //[Authorize(Roles = Role.Admin + "," + Role.User)]
         [HttpGet("{id}")]
         public async Task<ActionResult<PG>> GetPG(int id)
         {
@@ -81,7 +83,7 @@ namespace OyoLife.Controllers
         // PUT: api/PGs/5
         // To protect from overposting attacks, please enable the specific properties you want to bind to, for
         // more details see https://aka.ms/RazorPagesCRUD.
-        [Authorize(Roles = Role.Dealer)]
+        //[Authorize(Roles = Role.Dealer)]
         [HttpPut("{id}")]
         public async Task<IActionResult> PutPG(int id, PG pG)
         {
@@ -184,7 +186,8 @@ namespace OyoLife.Controllers
         // POST: api/PGs
         // To protect from overposting attacks, please enable the specific properties you want to bind to, for
         // more details see https://aka.ms/RazorPagesCRUD.
-        [Authorize(Roles = Role.Dealer)]
+        //[Authorize(Roles = Role.Dealer)]
+        [AllowAnonymous]
         [HttpPost]
         public async Task<ActionResult<PG>> PostPG(PG pG)
         {
@@ -196,7 +199,8 @@ namespace OyoLife.Controllers
         }
 
         // DELETE: api/PGs/5
-        [Authorize(Roles = Role.Dealer)]
+        //[Authorize(Roles = Role.Dealer)]
+        
         [HttpDelete("{id}")]
         public async Task<ActionResult<PG>> DeletePG(int id)
         {
