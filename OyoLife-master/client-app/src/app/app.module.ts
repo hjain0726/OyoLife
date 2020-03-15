@@ -1,7 +1,7 @@
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
-import { HttpClientModule } from "@angular/common/http";
-import { FormsModule } from "@angular/forms";
+import { HttpClientModule, HTTP_INTERCEPTORS } from "@angular/common/http";
+import { FormsModule, ReactiveFormsModule } from "@angular/forms";
 import { CommonModule } from "@angular/common";
 
 
@@ -17,6 +17,9 @@ import { PgDetailComponent } from './pg/pg-detail/pg-detail.component';
 import { VistBookingComponent } from './visit-booking/vist-booking.component';
 import { PgService } from './pg/pg.service';
 import { from } from 'rxjs';
+import { AuthService } from './auth/auth.service';
+import { AuthGuard } from './auth/auth-guard.service';
+import { AuthInterceptor } from './auth/auth.interceptor';
 
 @NgModule({
   declarations: [
@@ -35,9 +38,18 @@ import { from } from 'rxjs';
     AppRoutingModule,
     CommonModule,
     FormsModule,
-    HttpClientModule
+    HttpClientModule,
+    ReactiveFormsModule
   ],
-  providers: [PgService],
+  providers: [PgService,
+    AuthService,
+    AuthGuard,
+    {
+      provide: HTTP_INTERCEPTORS,
+      useClass: AuthInterceptor,
+      multi: true
+    }
+  ],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

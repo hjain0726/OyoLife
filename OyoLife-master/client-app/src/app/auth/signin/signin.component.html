@@ -5,11 +5,25 @@
                 <!-- <img class="profile-img-card" src="//lh3.googleusercontent.com/-6V8xOA6M7BA/AAAAAAAAAAI/AAAAAAAAAAA/rzlHcD0KYwo/photo.jpg?sz=120" alt="" /> -->
                 <img id="profile-img" class="profile-img-card" src="//ssl.gstatic.com/accounts/ui/avatar_2x.png" />
                 <p id="profile-name" class="profile-name-card"></p>
-                <form class="form-signin">
-                    <span id="reauth-email" class="reauth-email"></span>
-                    <input type="email" id="inputEmail" class="form-control" placeholder="Email address" required autofocus>
-                    <input type="password" id="inputPassword" class="form-control" placeholder="Password" required><br>
-                    <button class="btn btn-lg btn-primary btn-block btn-signin" type="submit">Sign in</button>
+                <div class="alert alert-warning" *ngIf="msg!=null" role="alert">
+                    {{msg}}
+                </div>
+                <form class="form-signin" [formGroup]="signinForm" (ngSubmit)="signIn()">
+                    <span class="msg"
+                        *ngIf="!signinForm.get('User_Email').valid && signinForm.get('User_Email').touched">
+                        Please enter valid email</span>
+                    <input type="email" formControlName="User_Email" id="inputEmail" class="form-control"
+                        placeholder="Email address" required autofocus>
+                    <span class="msg"
+                        *ngIf="!signinForm.get('User_Password').valid && signinForm.get('User_Password').touched">
+                        Password required</span>
+
+                    <input type="password" formControlName="User_Password" id="inputPassword" class="form-control"
+                        placeholder="Password" required>
+                    <br>
+                    <button class="btn btn-lg btn-primary btn-block btn-signin" [disabled]="signinForm.invalid"
+                        type="submit"><i class="fa fa-spinner fa-spin" *ngIf="loader"></i>
+                        Sign in</button>
                 </form><!-- /form -->
                 <a routerLink="/signup" class="forgot-password">
                     Don't Have an Account? Signup
@@ -17,5 +31,5 @@
             </div><!-- /card-container -->
         </div>
     </div>
-    
+
 </div><!-- /container -->

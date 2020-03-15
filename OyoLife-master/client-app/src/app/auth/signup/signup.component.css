@@ -140,6 +140,15 @@
     color: rgb(12, 97, 33);
 }
 
-#age{
+#age,#gender{
     margin-bottom: 10px;
+}
+
+.msg{
+	color: blue; 
+	margin-top: -20px;
+    font-size: 13px;
+}
+.alert{
+    text-align: center;
 }

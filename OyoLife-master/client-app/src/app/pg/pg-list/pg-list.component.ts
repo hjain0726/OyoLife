@@ -9,6 +9,7 @@ import { PgService } from '../pg.service';
 })
 export class PgListComponent implements OnInit {
 
+  loader=true;
   AllPgs:any
 
   constructor(private router: Router, private pgService:PgService) { }
@@ -22,7 +23,9 @@ export class PgListComponent implements OnInit {
   }
 
   ngOnInit(): void {
+    this.loader=true;
     this.pgService.getPGs().subscribe((data)=>{
+      this.loader=false;
       this.AllPgs=data;
       this.pgService.AllPGs=data;
       console.log(data);

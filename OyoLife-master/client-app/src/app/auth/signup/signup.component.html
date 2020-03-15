@@ -5,16 +5,42 @@
                 <!-- <img class="profile-img-card" src="//lh3.googleusercontent.com/-6V8xOA6M7BA/AAAAAAAAAAI/AAAAAAAAAAA/rzlHcD0KYwo/photo.jpg?sz=120" alt="" /> -->
                 <img id="profile-img" class="profile-img-card" src="//ssl.gstatic.com/accounts/ui/avatar_2x.png" />
                 <p id="profile-name" class="profile-name-card"></p>
-                <form class="form-signin">
-                    <span id="reauth-email" class="reauth-email"></span>
-                    <input type="email" id="inputEmail" class="form-control" placeholder="Email address" required autofocus>
-                    <input type="password" id="inputPassword" class="form-control" placeholder="Password" required>
-                    <input type="text" class="form-control" placeholder="Name" required autofocus>
-                    <input type="text" class="form-control" placeholder="Gender" required autofocus>
-                    <input type="number" id="age" class="form-control" placeholder="Age" required autofocus>
-                    <input type="text" class="form-control" placeholder="Phone No." required autofocus>
+                <div class="alert alert-warning" *ngIf="msg!=null" role="alert">
+                    {{msg}}
+                </div>
+                <form class="form-signin" [formGroup]="signupForm" (ngSubmit)="signUp()">
+                    <span class="msg"
+                        *ngIf="!signupForm.get('User_Email').valid && signupForm.get('User_Email').touched">
+                        Please enter valid email</span>
+                    <input type="email" formControlName="User_Email" id="inputEmail" class="form-control"
+                        placeholder="Email address" autofocus>
+                    <span class="msg"
+                        *ngIf="!signupForm.get('User_Password').valid && signupForm.get('User_Password').touched">
+                        Password required</span>
+                    <input type="password" formControlName="User_Password" id="inputPassword" class="form-control"
+                        placeholder="Password">
+                    <span class="msg" *ngIf="!signupForm.get('user_name').valid && signupForm.get('user_name').touched">
+                        Name required</span>
+
+                    <input type="text" formControlName="user_name" class="form-control" placeholder="Name" autofocus>
+                    <select id="gender" class="form-control" formControlName="user_gender">
+                        <option value="Male">Male</option>
+                        <option value="Female">Female</option>
+                    </select>
+                    <span class="msg" *ngIf="!signupForm.get('user_age').valid && signupForm.get('user_age').touched">
+                        Age required</span>
+
+                    <input type="number" formControlName="user_age" id="age" class="form-control" placeholder="Age"
+                        autofocus>
+                    <span class="msg"
+                        *ngIf="!signupForm.get('user_phone').valid && signupForm.get('user_phone').touched">
+                        Enter valid Phone number</span>
+
+                    <input type="text" formControlName="user_phone" class="form-control" placeholder="Phone No."
+                        autofocus>
                     <br>
-                    <button class="btn btn-lg btn-primary btn-block btn-signin" type="submit">Sign up</button>
+                    <button class="btn btn-lg btn-primary btn-block btn-signin" [disabled]="signupForm.invalid" type="submit"><i class="fa fa-spinner fa-spin" *ngIf="loader"></i>
+                        Sign up</button>
                 </form><!-- /form -->
                 <a routerLink="/signin" class="forgot-password">
                     Already Have an Account? Signin
@@ -22,6 +48,5 @@
             </div><!-- /card-container -->
         </div>
     </div>
-    
-</div><!-- /container -->
 
+</div><!-- /container -->

@@ -16,10 +16,13 @@
 
       <ul class="navbar-nav ml-auto">
         <li class="nav-item">
-          <a class="nav-link" routerLink="/signin">Login</a>
+          <a class="nav-link" *ngIf="!isAuthenticated()" routerLink="/signin">Login</a>
         </li>
         <li class="nav-item">
-          <a class="nav-link" routerLink="/signup">SignUp</a>
+          <a class="nav-link" *ngIf="!isAuthenticated()" routerLink="/signup">SignUp</a>
+        </li>
+        <li class="nav-item">
+          <a id="logout" class="nav-link" *ngIf="isAuthenticated()" (click)="logout()">Logout</a>
         </li>
       </ul>
     </div>

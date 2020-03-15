@@ -139,3 +139,12 @@
 .forgot-password:focus{
     color: rgb(12, 97, 33);
 }
+
+.msg{
+	color: blue; 
+	margin-top: -20px;
+    font-size: 13px;
+}
+.alert{
+    text-align: center;
+}

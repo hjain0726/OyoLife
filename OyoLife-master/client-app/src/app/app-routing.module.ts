@@ -6,6 +6,7 @@ import { SigninComponent } from './auth/signin/signin.component';
 import { SignupComponent } from './auth/signup/signup.component';
 import { PgDetailComponent } from './pg/pg-detail/pg-detail.component';
 import { VistBookingComponent } from './visit-booking/vist-booking.component';
+import { AuthGuard } from './auth/auth-guard.service';
 
 const appRoutes: Routes = [
     {
@@ -16,7 +17,7 @@ const appRoutes: Routes = [
     { path: 'signin', component: SigninComponent },
     { path: 'signup', component: SignupComponent },
     { path: 'PgDetail', component: PgDetailComponent },
-    { path: 'VisitBooking', component: VistBookingComponent }
+    { path: 'VisitBooking', component: VistBookingComponent, canActivate: [AuthGuard] }
 ];
 
 @NgModule({

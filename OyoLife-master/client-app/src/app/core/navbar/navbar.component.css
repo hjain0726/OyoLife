@@ -5,3 +5,7 @@
 #searchInput{
     width: 550px;
 }
+
+#logout{
+    cursor: pointer;
+}
