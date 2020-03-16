@@ -12,6 +12,8 @@ export class PgService{
     applyMonthlyRentFilter=new Subject<{ start: number, end: number }>();
     applyLocationFilter=new Subject<string>();
 
+    hideSearch=new Subject<boolean>();
+
     path = "https://localhost:44391";
     AllPGs:any;
     pg:any;
@@ -38,6 +40,14 @@ export class PgService{
 
     locationFilter(location:string){
         this.applyLocationFilter.next(location);
+    }
+
+    hideSearchBar(){
+        this.hideSearch.next(false);
+    }
+
+    showSearchBar(){
+        this.hideSearch.next(true);
     }
 
 }

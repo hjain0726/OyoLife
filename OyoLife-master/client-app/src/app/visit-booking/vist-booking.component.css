@@ -16,7 +16,7 @@
 .card-title {
     margin: auto;
     padding: 15px;
-    background-color: #2f7fad;
+    background-color:#68a1a3;
     color: white;
     width: 100%
 }
@@ -66,12 +66,9 @@ select:focus {
     margin: auto !important
 }
 
-.fa {
-    border-radius: 25px;
-    width: 10%;
-    margin-left: 5%;
-    border: solid 2px #dbdad7;
-    text-align: center
+.bv{
+    color: white;
+  background-color: #c76b93;
 }
 
 @media only screen and (max-width: 600px) {
@@ -83,14 +80,5 @@ select:focus {
         padding-bottom: 10px !important;
         padding-right: 10px !important;
         padding-top: 0px !important
-    }
-
-    .fa {
-        border-radius: 25px;
-        width: 15%;
-        margin-left: 5%;
-        border: solid 2px #dbdad7;
-        margin-top: 5%;
-        text-align: center
     }
 }

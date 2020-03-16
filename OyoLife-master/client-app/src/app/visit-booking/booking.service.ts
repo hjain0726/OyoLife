@@ -11,7 +11,14 @@ export class BookingService{
 
     }
 
-    bookVisit(booking){
+    bookVisit(date,time){
+        let booking={
+            Booking_Date:date,
+            Booking_Time:time,
+            PGId:this.pg.id,
+            DealerId:this.pg.dealerId,
+            UserId:parseInt(localStorage.getItem("user_id")),
+        }
         return this.http.post(this.path + '/api/Bookings',booking);
     }
 }

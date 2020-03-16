@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { FormGroup, FormControl, Validators } from '@angular/forms';
 import { AuthService } from '../auth.service';
 import { Router } from '@angular/router';
+import { PgService } from 'src/app/pg/pg.service';
 
 @Component({
   selector: 'app-signup',
@@ -16,7 +17,7 @@ export class SignupComponent implements OnInit {
   msg: string;
   signupForm: FormGroup;
 
-  constructor(private authService: AuthService, private router: Router) { }
+  constructor(private authService: AuthService, private router: Router,private pgService:PgService) { }
 
   signUp() {
     this.loader = true;
@@ -46,6 +47,7 @@ export class SignupComponent implements OnInit {
     });
     this.signupForm.controls['user_gender'].setValue("Male", { onlySelf: true });
 
+    this.pgService.hideSearchBar();
   }
 
 }

@@ -12,3 +12,30 @@
  h6{
      color: grey;
  }
+
+ .bsfv{
+    background-color:#68a1a3;
+    color: white;
+ }
+ .bc{
+    color: white;
+   background-color: #c76b93;
+ }
+
+ .bsfv:hover{
+    background-color:#466c6e;
+  }
+  
+.bc:hover{
+    background-color:#8f4c69;
+  }
+
+  @media only screen and (max-width: 600px) {
+    .d-block{
+        height: 25vh;
+        }
+    .bc{
+        margin-top: 8px;
+    }
+
+  }

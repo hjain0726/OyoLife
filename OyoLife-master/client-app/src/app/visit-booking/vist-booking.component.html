@@ -8,16 +8,19 @@
             <i class="fa fa-home fa-2x" aria-hidden="true"></i>
         </div>-->
         <hr>
+        <div class="alert alert-warning" *ngIf="msg!=null" role="alert">
+            {{msg}}
+        </div>
         <form>
             <div id="bookForm">
                 <div class="row mt-4">
                     <div class="col-sm-12">
-                        <input type="Date" name="Date" ngModel  class="browser-default custom-select mb-4" #date>
+                        <input type="Date" name="Date" ngModel  class="browser-default custom-select mb-4" #date required>
                     </div>
                 </div>
                 <div class="row mt-4">
                     <div class="col-sm-12">
-                        <select class="browser-default custom-select mb-4" id="select" name="time" ngModel #time>
+                        <select class="browser-default custom-select mb-4" id="select" name="time" ngModel #time required>
                             <option value="" disabled="" selected="">Time</option>
                             <option value="9:00 AM">9:00 AM</option>
                             <option value="12:00 PM">12:00 PM</option>
@@ -26,7 +29,7 @@
                         </select>
                     </div>
                 </div>
-                <button class="btn btn-primary mt-5" (click)="bookVisit()">Book</button>
+                <button class="btn btn-block bv" (click)="bookVisit()"> <i class="fa fa-spinner fa-spin " *ngIf="loader"></i> Book</button>
             </div>
         </form>
     </div>

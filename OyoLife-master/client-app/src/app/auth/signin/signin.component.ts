@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { FormGroup, FormControl, Validators } from '@angular/forms';
 import { AuthService } from '../auth.service';
 import { Router } from '@angular/router';
+import { PgService } from 'src/app/pg/pg.service';
 
 @Component({
   selector: 'app-signin',
@@ -15,7 +16,7 @@ export class SigninComponent implements OnInit {
   msg:string;
   signinForm: FormGroup;
 
-  constructor(private authService: AuthService,private router:Router) { }
+  constructor(private authService: AuthService,private router:Router,private pgService:PgService) { }
 
   signIn() {
     this.loader=true;
@@ -39,6 +40,8 @@ export class SigninComponent implements OnInit {
       'User_Email': new FormControl(null, [Validators.required, Validators.pattern(this.emailPattern)]),
       'User_Password': new FormControl(null, [Validators.required])
     });
+
+    this.pgService.hideSearchBar();
   }
 
 }

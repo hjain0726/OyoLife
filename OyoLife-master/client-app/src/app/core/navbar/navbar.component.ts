@@ -1,6 +1,7 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { AuthService } from 'src/app/auth/auth.service';
 import { PgService } from 'src/app/pg/pg.service';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-navbar',
@@ -9,9 +10,12 @@ import { PgService } from 'src/app/pg/pg.service';
 })
 export class NavbarComponent implements OnInit {
 
-  @ViewChild('srch',{static:true}) searched;
+  showSearchBar=true;
 
-  constructor(private authService: AuthService,private pgService:PgService) { }
+  @ViewChild('srch',{static:false}) searched;
+
+  constructor(private authService: AuthService, private pgService:PgService) { 
+  }
 
   search(){
     this.pgService.locationFilter(this.searched.nativeElement.value);
@@ -26,6 +30,9 @@ export class NavbarComponent implements OnInit {
   }
 
   ngOnInit(): void {
+    this.pgService.hideSearch.subscribe((res)=>{
+      this.showSearchBar=res;
+    })
   }
 
 }

@@ -1,6 +1,8 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { BookingService } from './booking.service';
 import { FormGroup } from '@angular/forms';
+import { Router } from '@angular/router';
+import { PgService } from '../pg/pg.service';
 
 @Component({
   selector: 'app-vist-booking',
@@ -9,17 +11,37 @@ import { FormGroup } from '@angular/forms';
 })
 export class VistBookingComponent implements OnInit {
 
- @ViewChild('date',{static:true}) bookingDate;
-  @ViewChild('time',{static:true}) bookingTime;
+  msg: any;
+  @ViewChild('date', { static: true }) bookingDate;
+  @ViewChild('time', { static: true }) bookingTime;
 
-  constructor(private bookingService:BookingService) { }
+  constructor(private bookingService: BookingService, private router: Router,private pgService:PgService) { }
+  loader = false;
 
-  bookVisit(){
-    console.log(this.bookingDate.nativeElement.value);
-    console.log(this.bookingTime.nativeElement.value);
+  bookVisit() {
+    this.loader = true;
+    let date = this.bookingDate.nativeElement.value + "T00:00:00";
+    let time = this.bookingTime.nativeElement.value;
+    if (date == "" || time == "") {
+      this.msg = "Date or Time required"
+      this.loader=false;
+    } else {
+      this.bookingService.bookVisit(date, time).subscribe((res) => {
+        this.loader = false;
+        if (res['msg']['success']) {
+          alert("Booking Done Successfully");
+          this.router.navigate(['/']);
+        }
+      }, (error) => {
+        this.loader = false;
+        this.msg = error['error']['message'];
+      });
+
+    }
   }
-  
+
   ngOnInit(): void {
+    this.pgService.hideSearchBar();
   }
 
 }

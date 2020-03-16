@@ -1,10 +1,14 @@
 .card{
-    margin:20px;
     border: 0px;
+    width: 80%;
+    height: 80%;
+    margin-top: 4%;
 }
 
-h6,p{
+
+p{
     color: grey;
+    font-size: 14px;
 }
 #amount{
     color: black;
@@ -14,8 +18,8 @@ h6,p{
 
 }
 .card-img-top{
-    width: 100% !important;
-    height: 40vh;
+    width: 90% !important;
+    
     background-size: cover;
     }  
 
@@ -57,4 +61,52 @@ h6,p{
           height: 32px;
         }
       }
-      
+
+.pgRow{
+  margin-top: 25px;
+}      
+
+#viewDetailbtn,#vistbtn{
+  height: 40px;
+  border-radius: 0px;
+}
+
+#address{
+  width: 270px;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+ 
+}
+
+.bsfv{
+  background-color:#68a1a3;
+  color: white;
+}
+
+.bvd{
+  color: white;
+  background-color: #c76b93;
+}
+
+.bsfv:hover{
+  background-color:#466c6e;
+}
+
+.bvd:hover{
+  background-color:#8f4c69;
+}
+
+@media only screen and (max-width: 600px) {
+  .card{
+    width:100%;
+  }
+  #address{
+    width: 100px;
+  }
+  #vistbtn{
+    margin-top: 5px;
+    margin-left: 0px;
+  }
+
+}      

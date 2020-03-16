@@ -9,3 +9,30 @@
 #logout{
     cursor: pointer;
 }
+.btn-srch{
+    background-color: #68a1a3;
+}
+
+.fa-search{
+  color: white;
+}
+
+.brnd{
+    color: #285354;
+    font-weight: 600;
+}
+.bc{
+    padding-top: 20px;
+    padding-bottom: 20px;
+}
+@media only screen and (max-width: 600px) {
+    #searchInput{
+        width: 190px;
+    }
+    #searchForm{
+        margin-left: 0px;
+    }
+    #srchbtn{
+        margin-left: 3px;
+    }
+}
