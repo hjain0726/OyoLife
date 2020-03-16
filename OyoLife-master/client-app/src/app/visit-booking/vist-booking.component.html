@@ -8,23 +8,27 @@
             <i class="fa fa-home fa-2x" aria-hidden="true"></i>
         </div>-->
         <hr>
-        <div id="bookForm">
-            <div class="row mt-4">
-                <div class="col-sm-12">
-                    <input type="Date" class="browser-default custom-select mb-4">
+        <form>
+            <div id="bookForm">
+                <div class="row mt-4">
+                    <div class="col-sm-12">
+                        <input type="Date" name="Date" ngModel  class="browser-default custom-select mb-4" #date>
+                    </div>
                 </div>
+                <div class="row mt-4">
+                    <div class="col-sm-12">
+                        <select class="browser-default custom-select mb-4" id="select" name="time" ngModel #time>
+                            <option value="" disabled="" selected="">Time</option>
+                            <option value="9:00 AM">9:00 AM</option>
+                            <option value="12:00 PM">12:00 PM</option>
+                            <option value="2:00 PM">2:00 PM</option>
+                            <option value="5:00 PM">5:00 PM</option>
+                        </select>
+                    </div>
+                </div>
+                <button class="btn btn-primary mt-5" (click)="bookVisit()">Book</button>
             </div>
-            <div class="row mt-4">
-                <div class="col-sm-12"> 
-                    <select class="browser-default custom-select mb-4" id="select">
-                        <option value="" disabled="" selected="">9:00 Am</option>
-                        <option value="1">12:00 PM</option>
-                        <option value="2">2:00 PM</option>
-                        <option value="3">5:00 PM</option>
-                    </select>
-                </div>
-        </div>
-    </div> 
-    <a href="#" class="btn btn-primary mt-5">Book</a>
+        </form>
     </div>
+
 </div>

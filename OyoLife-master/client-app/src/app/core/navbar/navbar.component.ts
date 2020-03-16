@@ -1,5 +1,6 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewChild } from '@angular/core';
 import { AuthService } from 'src/app/auth/auth.service';
+import { PgService } from 'src/app/pg/pg.service';
 
 @Component({
   selector: 'app-navbar',
@@ -8,9 +9,12 @@ import { AuthService } from 'src/app/auth/auth.service';
 })
 export class NavbarComponent implements OnInit {
 
-  constructor(private authService: AuthService) { }
+  @ViewChild('srch',{static:true}) searched;
 
-  ngOnInit(): void {
+  constructor(private authService: AuthService,private pgService:PgService) { }
+
+  search(){
+    this.pgService.locationFilter(this.searched.nativeElement.value);
   }
 
   isAuthenticated() {
@@ -20,4 +24,8 @@ export class NavbarComponent implements OnInit {
   logout(){
     this.authService.logout();
   }
+
+  ngOnInit(): void {
+  }
+
 }

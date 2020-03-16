@@ -1,4 +1,6 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewChild } from '@angular/core';
+import { BookingService } from './booking.service';
+import { FormGroup } from '@angular/forms';
 
 @Component({
   selector: 'app-vist-booking',
@@ -7,8 +9,16 @@ import { Component, OnInit } from '@angular/core';
 })
 export class VistBookingComponent implements OnInit {
 
-  constructor() { }
+ @ViewChild('date',{static:true}) bookingDate;
+  @ViewChild('time',{static:true}) bookingTime;
 
+  constructor(private bookingService:BookingService) { }
+
+  bookVisit(){
+    console.log(this.bookingDate.nativeElement.value);
+    console.log(this.bookingTime.nativeElement.value);
+  }
+  
   ngOnInit(): void {
   }
 

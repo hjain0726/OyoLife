@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { PgService } from '../pg.service';
+import { BookingService } from 'src/app/visit-booking/booking.service';
 
 @Component({
   selector: 'app-pg-list',
@@ -9,16 +10,21 @@ import { PgService } from '../pg.service';
 })
 export class PgListComponent implements OnInit {
 
+  gender:string='';
+  occupancy:string='';
+  location:string='';
+  monthlyRent: { start: number, end: number }=null;
   loader=true;
   AllPgs:any
 
-  constructor(private router: Router, private pgService:PgService) { }
+  constructor(private router: Router, private pgService:PgService,private bookingService:BookingService) { }
 
   ShowDeatils(pg){
     this.pgService.pg=pg;
     this.router.navigate(['PgDetail']);
   }
-  VisitBooking(){
+  VisitBooking(pg){
+    this.bookingService.pg=pg;
     this.router.navigate(['VisitBooking']);
   }
 
@@ -30,6 +36,22 @@ export class PgListComponent implements OnInit {
       this.pgService.AllPGs=data;
       console.log(data);
     });
+
+    this.pgService.applyGenderFilter.subscribe((gender)=>{
+      this.gender=gender;
+    });
+
+    this.pgService.applyOccupancyFilter.subscribe((occupancy)=>{
+      this.occupancy=occupancy;
+    });
+    
+    this.pgService.applyMonthlyRentFilter.subscribe((monthlyRent)=>{
+      this.monthlyRent=monthlyRent;
+    });
+
+    this.pgService.applyLocationFilter.subscribe((location)=>{
+      this.location=location;
+    })
   }
 
 }

@@ -20,6 +20,11 @@ import { from } from 'rxjs';
 import { AuthService } from './auth/auth.service';
 import { AuthGuard } from './auth/auth-guard.service';
 import { AuthInterceptor } from './auth/auth.interceptor';
+import { GenderPipe } from './filters/gender.pipe';
+import { OccupancyPipe } from './filters/occupancy.pipe';
+import { MonthlyRentPipe } from './filters/MonthlyRent.pipe';
+import { LocationPipe } from './filters/location.pipe';
+import { BookingService } from './visit-booking/booking.service';
 
 @NgModule({
   declarations: [
@@ -31,7 +36,11 @@ import { AuthInterceptor } from './auth/auth.interceptor';
     SigninComponent,
     SignupComponent,
     PgDetailComponent,
-    VistBookingComponent
+    VistBookingComponent,
+    GenderPipe,
+    OccupancyPipe,
+    MonthlyRentPipe,
+    LocationPipe
   ],
   imports: [
     BrowserModule,
@@ -42,6 +51,7 @@ import { AuthInterceptor } from './auth/auth.interceptor';
     ReactiveFormsModule
   ],
   providers: [PgService,
+    BookingService,
     AuthService,
     AuthGuard,
     {
