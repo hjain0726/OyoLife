@@ -108,5 +108,33 @@ p{
     margin-top: 5px;
     margin-left: 0px;
   }
-
 }      
+.badge{
+  padding: 10px;
+  width:10%;
+  font-size: 12px;
+  margin-right: 10px;
+}
+
+.filterdv{
+  margin-top: 20px;
+  margin-bottom: -1%;
+}
+
+#noPgs{
+  margin-top: 20%;
+  text-align: center;
+  color:grey;
+}
+
+#spo{
+  margin-top: 3%;
+  color:black;
+  margin-bottom: -3%;
+  font-weight: 500;
+}
+
+.asc{
+  border-radius: 50%;
+  margin-top: 5%;
+}

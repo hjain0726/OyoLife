@@ -4,18 +4,36 @@
     <div></div>
 </div>
 <div class="container">
-    <div class="row pgRow">
-        <div class="col-lg-4 col-sm-12 card" *ngFor="let pg of AllPgs |
-        GenderFilter :gender | OccupancyFilter:occupancy | MonthlyRentFilter:monthlyRent | LocationFilter:location">
-        
-            <img class="card-img-top" [src]="pg.pgImages[0].image_Url" alt="First slide">
-            <div class="card-body">
-                <h6 class="card-title">{{pg.pg_Name}}</h6>
-                <p id="address">{{pg.pg_Address.line1}}</p>
-                <p class="card-text"><span id="amount">₹ {{pg.pg_Price}}/</span>month onwards</p>
-                <button id="viewDetailbtn" class="btn bvd" (click)="ShowDeatils(pg)">View Detail</button>
-                <button id="vistbtn" class="btn bsfv" (click)="VisitBooking(pg)">Schedule Free Visit</button>
+    <div class="filterdv" *ngIf="gender!=''|| occupancy!='' || location!='' || monthlyRent!=null">
+        <p>Applied Filters</p>
+        <span *ngIf="gender!=''" class="badge badge-light shadow bg-white rounded">{{gender}}</span>
+        <span *ngIf="occupancy!=''" class="badge badge-light shadow bg-white rounded">{{occupancy}}</span>
+        <span *ngIf="location!=''" class="badge badge-light shadow bg-white rounded">{{location}}</span>
+        <span *ngIf="monthlyRent!=null" class="badge badge-light shadow bg-white rounded">₹ {{monthlyRent.start}} -
+            {{monthlyRent.end}}</span>
+    </div>
+    
+    <ng-container
+        *ngIf="(AllPgs |
+                GenderFilter :gender | 
+                OccupancyFilter:occupancy | 
+                MonthlyRentFilter:monthlyRent | 
+                LocationFilter:location) 
+                as pgs">
+                <h5 id="spo">Showing {{pgs.length}} pgs out of {{AllPgs.length}}</h5>
+                <!--<button class="badge badge-light shadow bg-white rounded asc">1</button>-->
+        <div class=" row pgRow">
+            <div class="col-lg-4 col-sm-12 card" *ngFor="let pg of pgs">
+                <img class="card-img-top" [src]="pg.pgImages[0].image_Url" alt="First slide">
+                <div class="card-body">
+                    <h6 class="card-title">{{pg.pg_Name}}</h6>
+                    <p id="address">{{pg.pg_Address.line1}}</p>
+                    <p class="card-text"><span id="amount">₹ {{pg.pg_Price}}/</span>month onwards</p>
+                    <button id="viewDetailbtn" class="btn bvd" (click)="ShowDeatils(pg)">View Detail</button>
+                    <button id="vistbtn" class="btn bsfv" (click)="VisitBooking(pg)">Schedule Free Visit</button>
+                </div>
             </div>
         </div>
-    </div>
+        <h5 id="noPgs"*ngIf="pgs.length==0">No Pgs To Show</h5>
+    </ng-container>
 </div>

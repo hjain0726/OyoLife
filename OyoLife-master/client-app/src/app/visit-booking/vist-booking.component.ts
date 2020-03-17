@@ -4,6 +4,8 @@ import { FormGroup } from '@angular/forms';
 import { Router } from '@angular/router';
 import { PgService } from '../pg/pg.service';
 
+declare var swal: any;
+
 @Component({
   selector: 'app-vist-booking',
   templateUrl: './vist-booking.component.html',
@@ -29,7 +31,9 @@ export class VistBookingComponent implements OnInit {
       this.bookingService.bookVisit(date, time).subscribe((res) => {
         this.loader = false;
         if (res['msg']['success']) {
-          alert("Booking Done Successfully");
+          swal("Done", "Booking Done Successfully", "success", {
+            button: "Ok",
+          });
           this.router.navigate(['/']);
         }
       }, (error) => {

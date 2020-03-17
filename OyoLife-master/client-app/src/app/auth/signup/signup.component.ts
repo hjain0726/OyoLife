@@ -4,6 +4,8 @@ import { AuthService } from '../auth.service';
 import { Router } from '@angular/router';
 import { PgService } from 'src/app/pg/pg.service';
 
+declare var swal: any;
+
 @Component({
   selector: 'app-signup',
   templateUrl: './signup.component.html',
@@ -27,7 +29,10 @@ export class SignupComponent implements OnInit {
       console.log(res);
       if (res['msg']['success']) {
         this.router.navigate(['/signin']);
-        alert("Account created Successfully");
+        //alert("Account created Successfully");
+        swal("Done", "Account Created Successfully", "success", {
+          button: "Ok",
+        });
       }
     }, (error) => {
       this.loader = false;
